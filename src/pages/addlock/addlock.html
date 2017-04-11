@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div class="center">
+    <ion-buttons>
+      <button ion-button (click)="beginScan()" *ngIf="!isScanning">
+      Scan
+      </button>
+      <button ion-button (click)="stopScan()" *ngIf="isScanning">
+        Stop
+      </button>
+    </ion-buttons>
+    <ion-spinner name="dots" *ngIf="isScanning"></ion-spinner>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let lock of locks">
+      <button ion-item (click)="addLock(lock)">
+      <p>{{lock.name}}</p>
+      <p>{{lock.id}}</p>
+      <p>{{lock.rssi}}</p>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

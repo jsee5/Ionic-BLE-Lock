@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-fab top right edge>
+    <button ion-fab mini (click)="goToAddLockPage()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-card *ngIf="lock != null">
+    <ion-buttons right>
+      <button ion-button icon-only clear small (click)="goToSettingsPage()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-card-content>
+      <ion-card-title>{{lock.name}}</ion-card-title>
+    </ion-card-content>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <h1 *ngIf="lock.isLocked">Locked</h1>
+          <h1 *ngIf="!lock.isLocked">Unlocked</h1>
+          <p>{{lock.deviceId}}</p>
+          <!--<p>{{lock.serviceUUID}}</p>
+          <p>{{lock.characteristicUUID}}</p>-->
+        </ion-col>
+        <ion-col>
+          <ion-buttons right>
+            <button ion-button icon-only medium color="primary" *ngIf="lock.isLocked" (click)="toggle(lock, unlockIt)">
+              <ion-icon name="unlock" *ngIf="lock.isLocked"></ion-icon>
+            </button>
+            <button ion-button icon-only medium color="secondary" *ngIf="!lock.isLocked" (click)="toggle(lock, lockIt)">
+              <ion-icon name="lock" *ngIf="!lock.isLocked"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
