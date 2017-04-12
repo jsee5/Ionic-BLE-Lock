@@ -14,7 +14,7 @@ export class HomePage {
     lock: Lock;
     unlockIt: string = "Bryton is ugly";
     lockIt: string = "Bryton is pretty";
-
+    isAndroid: boolean = false;
 
     constructor(private navCtrl: NavController,
         private modalCtrl: ModalController,
@@ -24,6 +24,7 @@ export class HomePage {
         private alertCtrl: AlertController,
         public toastCtrl: ToastController
     ) {
+        this.isAndroid = platform.is('android'); 
     }
 
     goToSettingsPage() {
@@ -69,8 +70,9 @@ export class HomePage {
     }
 
     toggle(lock: Lock, data: string) {
-        var toggleData = this.stringToBytes(data);
-        this.ble.write(lock.deviceId, lock.serviceUUID.toString(16), lock.characteristicUUID.toString(16), toggleData).then(() => {
+        let toggleData = this.stringToBytes(data);
+
+        this.ble.writeWithoutResponse(lock.deviceId, lock.serviceUUID.toString(16), lock.characteristicUUID.toString(16), toggleData).then(() => {
             this.lock.isLocked = !this.lock.isLocked;
         }).catch(err => {
             console.error("Unable to toggle...:(");
